@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cases Collection - Unlimitech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* CSS KHUSUS HALAMAN PRODUK */
+        .category-hero {
+            padding-top: calc(var(--nav-height, 80px) + 60px);
+            padding-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--bg-light-dark, #222), var(--bg-dark, #111));
+        }
+
+        .category-hero h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--text-muted, #888);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-color, #00ffcc);
+        }
+
+        .product-section {
+            padding: 60px 40px 100px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background-color: var(--bg-light-dark, #222);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            background-color: var(--bg-dark, #111);
+        }
+
+        .prod-1 { background-image: url('https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); }
+        .prod-2 { background-image: url('https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); }
+        .prod-3 { background-image: url('https://images.unsplash.com/photo-1547082299-de196ea013d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); }
+
+        .product-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-info h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--accent-color, #00ffcc);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .product-desc {
+            color: var(--text-muted, #888);
+            font-size: 14px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .product-desc a {
+            padding: 50px;
+        }
+
+        /* --- CSS UNTUK MODAL POPUP --- */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: var(--bg-light-dark, #1a1a1a);
+            margin: 8% auto;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            width: 85%;
+            max-width: 900px;
+            position: relative;
+            color: #fff;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-body {
+            display: flex;
+            gap: 40px;
+            margin-top: 10px;
+        }
+
+        .modal-body img {
+            width: 50%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 6px;
+            background-color: #111;
+        }
+
+        .modal-info button {
+            padding: 40px;
+        }
+
+        .modal-info {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .modal-info h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .category-hero h1 { font-size: 2.2rem; }
+            .product-section { padding: 40px 20px; }
+            .product-grid { grid-template-columns: 1fr; }
+            
+            /* Responsive Modal */
+            .modal-body { flex-direction: column; gap: 20px; }
+            .modal-body img, .modal-info { width: 100%; }
+            .modal-info h2 { font-size: 1.8rem; }
+        }
+
+        /* Pop up */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 10005;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-overlay .modal-content {
+            transform: translateY(-30px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-color, #ffffff) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="/index.html" class="logo">Unlimitech</a>
+            <nav class="nav-menu">
+                <a href="/index.html#products">Products</a>
+                <a href="/index.html#explore">Explore</a>
+                <a href="/index.html#Company">Company</a>
+                <a href="/index.html#Support">Support</a>
+            </nav>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="category-hero">
+        <div class="nav-container" style="display: block; text-align: left;">
+            <a href="/index.html#products" class="back-link">&larr; Back to Categories</a>
+            <h1>PC Cases</h1>
+            <p style="color: var(--text-muted); max-width: 600px;">Jelajahi jajaran casing premium kami yang dirancang dengan perpaduan performa termal maksimal dan estetika interior modern.</p>
+        </div>
+    </section>
+
+    <section class="product-section">
+        <div class="product-grid">
+            
+            <div class="product-card">
+                <div class="product-img prod-1"></div>
+                <div class="product-info">
+                    <h3>Unlimitech North</h3>
+                    <div class="product-price">Rp 2.499.000</div>
+                    <p class="product-desc">Casing mid-tower mid-century modern dengan panel depan kayu asli berkualitas tinggi dan aliran udara optimal.</p>
+                    <a href="#" class="btn btn-primary detail-btn" 
+                       data-title="Unlimitech North" 
+                       data-price="Rp 2.499.000" 
+                       data-desc="Casing mid-tower mid-century modern dengan panel depan kayu asli berkualitas tinggi dan aliran udara optimal. Hadir dengan penyaring debu premium, dukungan radiator ganda, serta desain interior tanpa sekrup untuk kemudahan merakit."
+                       data-img="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                       style="padding: 12px 20px; text-align: center; font-size: 12px;">View Details</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img prod-2"></div>
+                <div class="product-info">
+                    <h3>Unlimitech Torrent</h3>
+                    <div class="product-price">Rp 3.150.000</div>
+                    <p class="product-desc">Didesain khusus untuk pendinginan udara ekstrem semenjak awal. Dilengkapi dengan kipas PWM 180mm bawaan.</p>
+                    <a href="#" class="btn btn-primary detail-btn" 
+                       data-title="Unlimitech Torrent" 
+                       data-price="Rp 3.150.000" 
+                       data-desc="Didesain khusus untuk pendinginan udara ekstrem semenjak awal. Dilengkapi dengan 2 kipas PWM 180mm bawaan dan grill depan terbuka penuh. Sangat cocok untuk sistem high-end yang menuntut sirkulasi udara maksimal."
+                       data-img="https://images.unsplash.com/photo-1624705002806-5d72df19c3ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                       style="padding: 12px 20px; text-align: center; font-size: 12px;">View Details</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img prod-3"></div>
+                <div class="product-info">
+                    <h3>Unlimitech Terra</h3>
+                    <div class="product-price">Rp 2.850.000</div>
+                    <p class="product-desc">Casing PC faktor bentuk kecil (ITX) yang dirancang untuk menyatu secara sempurna dengan ruang kerja minimalis Anda.</p>
+                    <a href="#" class="btn btn-primary detail-btn" 
+                       data-title="Unlimitech Terra" 
+                       data-price="Rp 2.850.000" 
+                       data-desc="Casing PC faktor bentuk kecil (Mini-ITX) yang dirancang untuk menyatu secara sempurna dengan ruang kerja minimalis Anda. Menggunakan material aluminium anodized dengan sentuhan panel kayu kenari pada bagian depan. Kecil namun bertenaga."
+                       data-img="https://images.unsplash.com/photo-1547082299-de196ea013d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                       style="padding: 12px 20px; text-align: center; font-size: 12px;">View Details</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Struktur Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img id="modalImg" src="" alt="Product Detail Image">
+                <div class="modal-info">
+                    <h2 id="modalTitle">Product Title</h2>
+                    <div id="modalPrice" class="product-price" style="font-size: 1.5rem;">Price</div>
+                    <p id="modalDesc" class="product-desc" style="font-size: 16px; margin-top: 15px;">Product detail description goes here.</p>
+                    <button id="modalCloseBtn" class="btn btn-primary" style="margin-top: 20px; width: fit-content; padding: 12px 30px;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer  id="Company">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="#Unlimitech" class="logo" style="margin-bottom: 20px; display: block;">Unlimitech Computer Store</a>
+                <p style="color: var(--text-muted); font-size: 14px; padding-right: 40px;">
+                     Istana BEC (Bandung Electronic Center) LT 02 Blok E01, Jl.Purnawarman No.13-15, Babakan Ciamis, Kec. Sumur Bandung, Kota Bandung, Jawa Barat 40117
+                </p>
+            </div>
+            <div class="footer-col">
+                <h4>Products</h4>
+                <ul>
+                    <li><a href="Category/category_Processor.html">Processor</a></li>
+                    <li><a href="Category/category_Motherboard.html">Motherboard</a></li>
+                    <li><a href="Category/category_RAM.html">RAM</a></li>
+                    <li><a href="Category/category_cooling.html">Cooling</a></li>
+                    <li><a href="Category/category_VGA.html">VGA</a></li>
+                    <li><a href="Category/category_power.html">Power Supplies</a></li>
+                    <li><a href="Category/category_cases.html">Cases</a></li>
+                    <li><a href="Category/category_accessories.html">Accessories</a></li>
+                </ul>
+            </div>
+            <div class="footer-col" id="Support">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#Downloads_&_Manuals">Downloads & Manuals</a></li>
+                    <li><a href="#Warranty_Info" class="popup-trigger" data-content="warranty">Warranty Info</a></li>
+                    <li><a href="#FAQ" class="popup-trigger" data-content="faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#About_Us" class="popup-trigger" data-content="about">About Us</a></li>
+                    <li><a href="#Careers" class="popup-trigger" data-content="careers">Careers</a></li>
+                    <li><a href="#Press" class="popup-trigger" data-content="press">Press</a></li>
+                    <li><a href="#Contact" class="popup-trigger" data-content="contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Fyratz Design Mockup. All rights reserved.</p>
+            <div>
+                <span style="margin-left: 20px;">Privacy Policy</span>
+                <span style="margin-left: 20px;">Terms of Service</span>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="company-modal">
+        <div class="modal-content" style="max-width: 500px; width: 90%; background-color: var(--bg-light-dark); border: 1px solid rgba(255, 255, 255, 0.05); padding: 40px; position: relative;">
+            <span class="close-modal" id="close-modal" style="position: absolute; top: 20px; right: 25px; font-size: 32px; color: var(--text-muted); cursor: pointer; line-height: 1;">&times;</span>
+            <h3 id="modal-title" style="font-size: 24px; font-weight: 600; margin-bottom: 20px; color: var(--accent-color, #ffffff); letter-spacing: 1px;">About Unlimitech</h3>
+            <div id="modal-body" style="color: var(--text-muted); font-size: 14px; line-height: 1.7;">
+                <p>Unlimitech adalah pelopor penyedia komponen PC premium dengan sentuhan estetika Skandinavia moderen.</p>
+            </div>
+            <p style="margin-top: 15px; color: var(--accent-color, #ffffff);">Transform your space, unleash your potential.</p>
+        </div>
+    </div>
+
+    <script>
+        // Logika Navigasi Mobile
+        const menuToggle = document.getElementById('mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // ================= --- SCRIPT MODAL VIEW DETAILS --- =================
+        const productModal = document.getElementById("productModal");
+        const closeBtn = document.getElementById("modalCloseBtn"); 
+        const detailBtns = document.querySelectorAll(".detail-btn");
+
+        // Element target dalam modal
+        const modalImg = document.getElementById("modalImg");
+        const modalTitleView = document.getElementById("modalTitle");
+        const modalPrice = document.getElementById("modalPrice");
+        const modalDesc = document.getElementById("modalDesc");
+
+        // Looping semua tombol View Details
+        detailBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                
+                // Mengambil data dari atribut data-* tombol yang diklik
+                modalTitleView.textContent = this.getAttribute('data-title');
+                modalPrice.textContent = this.getAttribute('data-price');
+                modalDesc.textContent = this.getAttribute('data-desc');
+                modalImg.src = this.getAttribute('data-img');
+                
+                // Tampilkan modal produk
+                productModal.style.display = "block";
+                document.body.style.overflow = "hidden";
+            });
+        });
+
+        // Fungsi tutup modal produk menggunakan tombol Close
+        closeBtn.addEventListener('click', function() {
+            productModal.style.display = "none";
+            // Hanya kembalikan scroll jika modal info company juga sedang tidak aktif
+            if (!companyModal.classList.contains('active')) {
+                document.body.style.overflow = "auto"; 
+            }
+        });
+
+        // Fungsi tutup modal produk jika klik di area kosong (luar modal)
+        window.addEventListener('click', function(event) {
+            if (event.target == productModal) {
+                productModal.style.display = "none";
+                if (!companyModal.classList.contains('active')) {
+                    document.body.style.overflow = "auto";
+                }
+            }
+        });
+
+
+       // ================= FITUR POP-UP UTAMA (DYNAMIC COMPANY MODAL DARI INDEX) ================= 
+       const modalData = {
+            warranty: {
+                title: "Warranty Info",
+                body: "<p>Semua komponen di Unlimitech dilengkapi dengan garansi resmi distributor hingga 1-5 tahun. Harap simpan nota pembelian dan box produk untuk mempermudah proses klaim garansi Anda.</p>"
+            },
+            faq: {
+                title: "Frequently Asked Questions",
+                body: "<p><b>Q: Apakah melayani pengiriman luar kota?</b><br>A: Ya, kami mengirim ke seluruh Indonesia menggunakan packing kayu yang aman.</p><p style='margin-top: 10px;'><b>Q: Apakah bisa rakit langsung di toko?</b><br>A: Tentu saja, tim teknisi kami siap merakit PC impian Anda langsung di lokasi.</p>"
+            },
+            about: {
+                title: "About Unlimitech",
+                body: "<p>Unlimitech adalah pelopor penyedia komponen PC premium dengan sentuhan estetika Skandinavia modern. Sejak didirikan pada tahun 2020, fokus utama kami adalah menggabungkan performa hardware komputasi maksimal dengan desain interior ruang kerja yang minimalis dan hangat.</p>"
+            },
+            careers: {
+                title: "Careers",
+                body: "<p>Kami selalu mencari talenta berbakat di bidang teknologi, perkabelan (cable management), dan desain. Kirimkan CV dan portofolio terbaikmu ke alamat email <b>career@unlimitech.com</b>.</p>"
+            },
+            press: {
+                title: "Press & Media",
+                body: "<p>Untuk keperluan peliputan, media kit, sponsorship acara, atau kolaborasi konten kreatif, silakan hubungi tim Public Relations kami melalui <b>press@unlimitech.com</b>.</p>"
+            },
+            contact: {
+                title: "Contact Us",
+                body: "<p>Butuh bantuan atau konsultasi spesifikasi PC? Hubungi kami via WhatsApp di <b>0812-XXXX-XXXX</b> atau kunjungi langsung store kami di Istana BEC Bandung Lantai 2 Blok E01.</p>"
+            }
+        };
+
+        const popupTriggers = document.querySelectorAll('.popup-trigger');
+        const companyModal = document.getElementById('company-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        // Fungsi membuka pop-up company dan mengganti teks secara dinamis
+        popupTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault(); // Mencegah halaman melompat ke atas akibat href="#"
+                
+                const contentKey = trigger.getAttribute('data-content');
+                
+                // Cek apakah data untuk menu tersebut tersedia
+                if (modalData[contentKey]) {
+                    modalTitle.textContent = modalData[contentKey].title;
+                    modalBody.innerHTML = modalData[contentKey].body;
+                    companyModal.classList.add('active');
+                    document.body.style.overflow = "hidden"; // Mengunci scroll saat modal aktif
+                }
+            });
+        });
+
+        // Fungsi menutup pop-up company saat tombol 'X' diklik
+        closeModal.addEventListener('click', () => {
+            companyModal.classList.remove('active');
+            // Hanya kembalikan scroll jika modal produk juga tidak sedang terbuka
+            if (productModal.style.display !== "block") {
+                document.body.style.overflow = "auto";
+            }
+        });
+
+        // Fungsi menutup pop-up company saat area di luar kotak detail diklik
+        companyModal.addEventListener('click', (e) => {
+            if (e.target === companyModal) {
+                companyModal.classList.remove('active');
+                if (productModal.style.display !== "block") {
+                    document.body.style.overflow = "auto";
+                }
+            }
+        });
+
+        // Fungsi menutup pop-up company dengan tombol 'Escape' pada keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (companyModal.classList.contains('active')) {
+                    companyModal.classList.remove('active');
+                    if (productModal.style.display !== "block") {
+                        document.body.style.overflow = "auto";
+                    }
+                }
+                // Menutup modal produk jika menekan esc
+                if (productModal.style.display === "block") {
+                    productModal.style.display = "none";
+                    if (!companyModal.classList.contains('active')) {
+                        document.body.style.overflow = "auto";
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
