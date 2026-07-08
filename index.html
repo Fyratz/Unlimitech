@@ -14,9 +14,10 @@
             <a href="#" class="logo">Unlimitech</a>
             <nav class="nav-menu">
                 <a href="#products">Products</a>
-                <a href="#explore">Explore</a>
-                <a href="#Company">Company</a>
+                <!-- <a href="#Explore" id="explore-btn">Explore</a> -->
                 <a href="#Support">Support</a>
+                <a href="#Company">Company</a>
+                <a href="#Contact_Me">Contact ME</a>
             </nav>
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
@@ -25,6 +26,14 @@
             </div>
         </div>
     </header>
+
+    <!-- <div class="search-overlay" id="search-overlay"> 
+        <span class="close-search" id="close-search">&times;</span>
+        <div class="search-container">
+            <input type="text" placeholder="Search..." id="search-input" autocomplete="on">
+            <button type="button" id="search-submit">Search</button>
+        </div>
+    </div>-->
 
     <section class="hero">
         <div class="hero-content">
@@ -42,7 +51,7 @@
         <div class="featured-text">
             <h2>Refined Airflow</h2>
             <p>Torrent dibangun untuk memaksimalkan potensi pendinginan udara sejak awal. Dilengkapi dengan tata letak internal yang inovatif dan kepingan Prisma PWM yang kuat untuk sirkulasi udara tak tertandingi.</p>
-            <a href="#" class="btn btn-primary">Explore Torrent</a>
+            <a href="#Refined_Airflow" class="btn btn-primary">Explore Torrent</a>
         </div>
         <div class="featured-img"></div>
     </section>
@@ -52,21 +61,21 @@
             <h2>Our Products</h2>
         </div>
         <div class="grid-container">
-            <div class="category-card" onclick="window.location.href='category_cases.html';">
+            <div class="category-card" onclick="window.location.href='Category/category_cases';">
                 <div class="card-img card-1"></div>
                 <div class="card-content">
                     <h3>Cases</h3>
                     <span>View Category &rarr;</span>
                 </div>
             </div>
-            <div class="category-card">
+            <div class="category-card" onclick="window.location.href='Category/category_cooling';">
                 <div class="card-img card-2"></div>
                 <div class="card-content">
                     <h3>Cooling</h3>
                     <span>View Category &rarr;</span>
                 </div>
             </div>
-            <div class="category-card">
+            <div class="category-card" onclick="window.location.href='Category/category_power';">
                 <div class="card-img card-3"></div>
                 <div class="card-content">
                     <h3>Power</h3>
@@ -79,36 +88,39 @@
     <footer  id="Company">
         <div class="footer-grid">
             <div class="footer-col">
-                <a href="#" class="logo" style="margin-bottom: 20px; display: block;">Unlimitech</a>
+                <a href="#Unlimitech" class="logo" style="margin-bottom: 20px; display: block;">Unlimitech Computer Store</a>
                 <p style="color: var(--text-muted); font-size: 14px; padding-right: 40px;">
-                    Merancang perangkat keras PC dengan fokus pada desain elegan, performa, dan kualitas tanpa kompromi.
+                     Istana BEC (Bandung Electronic Center) LT 02 Blok E01, Jl.Purnawarman No.13-15, Babakan Ciamis, Kec. Sumur Bandung, Kota Bandung, Jawa Barat 40117
                 </p>
             </div>
             <div class="footer-col">
                 <h4>Products</h4>
                 <ul>
-                    <li><a href="#">Cases</a></li>
-                    <li><a href="#">Cooling</a></li>
-                    <li><a href="#">Power Supplies</a></li>
-                    <li><a href="#">Accessories</a></li>
+                    <li><a href="Category/category_Processor.html">Processor</a></li>
+                    <li><a href="Category/category_Motherboard.html">Motherboard</a></li>
+                    <li><a href="Category/category_RAM.html">RAM</a></li>
+                    <li><a href="Category/category_cooling.html">Cooling</a></li>
+                    <li><a href="Category/category_VGA.html">VGA</a></li>
+                    <li><a href="Category/category_power.html">Power Supplies</a></li>
+                    <li><a href="Category/category_cases.html">Cases</a></li>
+                    <li><a href="Category/category_accessories.html">Accessories</a></li>
                 </ul>
             </div>
             <div class="footer-col" id="Support">
                 <h4>Support</h4>
                 <ul>
-                    <li><a href="#">Downloads & Manuals</a></li>
-                    <li><a href="#">Warranty Info</a></li>
-                    <li><a href="#">Submit a Ticket</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#Downloads_&_Manuals">Downloads & Manuals</a></li>
+                    <li><a href="#Warranty_Info" class="popup-trigger" data-content="warranty">Warranty Info</a></li>
+                    <li><a href="#FAQ" class="popup-trigger" data-content="faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Press</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#About_Us" class="popup-trigger" data-content="about">About Us</a></li>
+                    <li><a href="#Careers" class="popup-trigger" data-content="careers">Careers</a></li>
+                    <li><a href="#Press" class="popup-trigger" data-content="press">Press</a></li>
+                    <li><a href="#Contact" class="popup-trigger" data-content="contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -120,22 +132,135 @@
             </div>
         </div>
     </footer>
+
+    <div class="modal-overlay" id="company-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <!-- Tambahkan id="modal-title" dan id="modal-body" -->
+            <h3 id="modal-title">About Unlimitech</h3>
+            <div id="modal-body">
+                <p>Unlimitech adalah pelopor penyedia komponen PC premium dengan sentuhan estetika Skandinavia moderen.</p>
+            </div>
+            <p style="margin-top: 15px; color: var(--accent-color);">Transform your space, unleash your potential.</p>
+        </div>
+    </div>
+
 <script>
-        const menuToggle = document.getElementById('mobile-menu');
-        const navMenu = document.querySelector('.nav-menu');
+    const menuToggle = document.getElementById('mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
 
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
 
-        // Menutup menu saat salah satu link diklik
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
+    // Menutup menu saat salah satu link diklik
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navMenu.classList.remove('active');
         });
+    });
+
+// ================= FITUR POP-UP UTAMA (DYNAMIC MODAL) ================= 
+
+// Simpan data teks pop-up di dalam objek JavaScript
+const modalData = {
+    warranty: {
+        title: "Warranty Info",
+        body: "<p>Semua komponen di Unlimitech dilengkapi dengan garansi resmi distributor hingga 1-5 tahun. Harap simpan nota pembelian dan box produk untuk mempermudah proses klaim garansi Anda.</p>"
+    },
+    faq: {
+        title: "Frequently Asked Questions",
+        body: "<p><b>Q: Apakah melayani pengiriman luar kota?</b><br>A: Ya, kami mengirim ke seluruh Indonesia menggunakan packing kayu yang aman.</p><p style='margin-top: 10px;'><b>Q: Apakah bisa rakit langsung di toko?</b><br>A: Tentu saja, tim teknisi kami siap merakit PC impian Anda langsung di lokasi.</p>"
+    },
+    about: {
+        title: "About Unlimitech",
+        body: "<p>Unlimitech adalah pelopor penyedia komponen PC premium dengan sentuhan estetika Skandinavia modern. Sejak didirikan pada tahun 2020, fokus utama kami adalah menggabungkan performa hardware komputasi maksimal dengan desain interior ruang kerja yang minimalis dan hangat.</p>"
+    },
+    careers: {
+        title: "Careers",
+        body: "<p>Kami selalu mencari talenta berbakat di bidang teknologi, perkabelan (cable management), dan desain. Kirimkan CV dan portofolio terbaikmu ke alamat email <b>career@unlimitech.com</b>.</p>"
+    },
+    press: {
+        title: "Press & Media",
+        body: "<p>Untuk keperluan peliputan, media kit, sponsorship acara, atau kolaborasi konten kreatif, silakan hubungi tim Public Relations kami melalui <b>press@unlimitech.com</b>.</p>"
+    },
+    contact: {
+        title: "Contact Us",
+        body: "<p>Butuh bantuan atau konsultasi spesifikasi PC? Hubungi kami via WhatsApp di <b>0812-XXXX-XXXX</b> atau kunjungi langsung store kami di Istana BEC Bandung Lantai 2 Blok E01.</p>"
+    }
+};
+
+const popupTriggers = document.querySelectorAll('.popup-trigger');
+const companyModal = document.getElementById('company-modal');
+const closeModal = document.getElementById('close-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalBody = document.getElementById('modal-body');
+
+// Fungsi membuka pop-up dan mengganti teks secara dinamis
+popupTriggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+        e.preventDefault(); // Mencegah halaman melompat ke atas akibat href="#"
+        
+        const contentKey = trigger.getAttribute('data-content');
+        
+        // Cek apakah data untuk menu tersebut tersedia
+        if (modalData[contentKey]) {
+            modalTitle.textContent = modalData[contentKey].title;
+            modalBody.innerHTML = modalData[contentKey].body;
+            companyModal.classList.add('active');
+        }
+    });
+});
+
+// Fungsi menutup pop-up saat tombol 'X' diklik
+closeModal.addEventListener('click', () => {
+    companyModal.classList.remove('active');
+});
+
+// Fungsi menutup pop-up saat area di luar kotak detail diklik
+companyModal.addEventListener('click', (e) => {
+    if (e.target === companyModal) {
+        companyModal.classList.remove('active');
+    }
+});
+
+// Fungsi menutup pop-up dengan tombol 'Escape' pada keyboard
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && companyModal.classList.contains('active')) {
+        companyModal.classList.remove('active');
+    }
+});
+// ================= TAMBAHAN FITUR SEARCH ================= 
+// const exploreBtn = document.getElementById('explore-btn');
+// const searchOverlay = document.getElementById('search-overlay');
+// const closeSearch = document.getElementById('close-search');
+// const searchInput = document.getElementById('search-input');
+
+// Membuka overlay dan memfokuskan kursor ke input
+// exploreBtn.addEventListener('click', (e) => {
+    // e.preventDefault(); // Mencegah halaman melompat ke atas
+    // searchOverlay.classList.add('active');
+    // Memberikan sedikit delay agar transisi CSS selesai sebelum fokus
+    // setTimeout(() => {
+        // searchInput.focus();
+    // }, 300);
+// });
+
+// Menutup overlay saat tombol 'X' ditekan
+// closeSearch.addEventListener('click', () => {
+    // searchOverlay.classList.remove('active');
+    // searchInput.value = ''; // Mengosongkan input saat ditutup
+// });
+
+// Menutup overlay dengan tombol 'Escape' di keyboard
+// document.addEventListener('keydown', (e) => {
+    // if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+        // searchOverlay.classList.remove('active');
+        // searchInput.value = '';
+    // }
+// });
     </script>
 </body>
 </html>

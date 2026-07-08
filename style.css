@@ -1,7 +1,7 @@
 /* ================= VARIABEL CSS ================= */
 :root {
     --bg-dark: #050505;
-    --bg-light-dark: #121212;
+    --bg-light-dark: #101010;
     --text-main: #f5f5f5;
     --text-muted: #888888;
     --accent-color: #ffffff;
@@ -100,7 +100,7 @@ header {
     display: flex;
     align-items: center;
     /* Menggunakan gambar hardware dark mode berkualitas tinggi */
-    background: url('https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    background: url("Images/Wood_HalamanPertama.PNG") center/cover no-repeat;
     position: relative;
     padding: 0 40px;
 }
@@ -159,7 +159,7 @@ header {
     text-decoration: none;
     transition: all 0.3s ease;
     cursor: pointer;
-    border-radius: 0; /* Ujung tajam khas hardware */
+    border-radius: 0;
 }
 
 .btn-primary {
@@ -215,7 +215,7 @@ header {
 
 /* ================= CATEGORIES GRID ================= */
 .categories {
-    background-color: var(--bg-light-dark);
+    background-color: var(--);
     padding: 100px 40px;
 }
 
@@ -241,7 +241,7 @@ header {
     position: relative;
     height: 450px;
     overflow: hidden;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-light-dark);
     cursor: pointer;
 }
 
@@ -255,7 +255,7 @@ header {
 }
 
 .card-1 { background-image: url('https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); }
-.card-2 { background-image: url('https://images.unsplash.com/photo-1611078713589-9a67dd523b16?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); }
+.card-2 { background-image: url("Images/Liquid_Cooling.PNG"); }
 .card-3 { background-image: url('https://images.unsplash.com/photo-1555680202-c86f0e12f086?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); }
 
 .category-card:hover .card-img {
@@ -385,10 +385,10 @@ footer {
     .nav-menu {
         position: fixed;
         top: 0;
-        right: -100%; /* Sembunyikan menu di kanan layar */
+        right: -100%; 
         width: 100%;
         height: 100vh;
-        background-color: rgba(5, 5, 5, 0.98); /* Warna gelap estetik beralih ke layar penuh */
+        background-color: rgba(5, 5, 5, 0.98); 
         backdrop-filter: blur(5px);
         flex-direction: column;
         align-items: center;
@@ -404,6 +404,161 @@ footer {
 
     .nav-menu a {
         font-size: 20px; /* Ukuran font menu mobile dibuat lebih besar agar mudah ditekan */
+    }
+    
+}
+
+/* ================= MODAL POP UP COMPANY ================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(10px); /* Efek blur background */
+    z-index: 10005; /* Di atas komponen navigasi */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Aktifkan Modal */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--bg-light-dark);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    transform: translateY(-30px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-content h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--accent-color);
+    letter-spacing: 1px;
+}
+
+.modal-content p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 32px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: var(--accent-color);
+}
+
+/* ================= SEARCH OVERLAY ================= */
+/*.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 5, 0.95); /* Menggunakan variabel --bg-dark 
+    backdrop-filter: blur(10px);
+    z-index: 10000; /* Harus lebih tinggi dari header 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.search-container {
+    display: flex;
+    width: 80%;
+    max-width: 800px;
+    align-items: center;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 15px 0;
+    font-size: 2.5rem;
+    font-weight: 300;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--border-color);
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-container input:focus {
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.search-container button {
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    margin-left: 20px;
+    font-weight: 600;
+}
+
+.close-search {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-search:hover {
+    color: var(--accent-color);
+}*/
+
+/* Penyesuaian responsif untuk mobile */
+@media (max-width: 768px) {
+    .search-container input {
+        font-size: 1.8rem;
+    }
+    .close-search {
+        top: 20px;
+        right: 30px;
+        font-size: 3rem;
     }
 }
 
